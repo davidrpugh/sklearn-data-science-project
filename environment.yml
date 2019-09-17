@@ -1,8 +1,13 @@
 name: null
 
 channels:
+  - conda-forge
   - defaults
 
 dependencies:
-  - python=3.6
   - jupyterlab=1.0
+  - matplotlib=3.1
+  - pandas=0.25
+  - pyarrow=0.14
+  - python=3.6
+  - scikit-learn=0.21
