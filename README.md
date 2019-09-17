@@ -1,6 +1,6 @@
-# python-data-science-project
+# sklearn-data-science-project
 
-Repository containing scaffolding for a Python 3-based data science project. 
+Repository containing scaffolding for a Python 3-based data science project using the [scikit-learn](https://scikit-learn.org/stable/) ecosystem. 
 
 ## Creating a new project from this template
 
