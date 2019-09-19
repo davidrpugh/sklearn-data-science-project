@@ -1,13 +1,16 @@
-FROM continuumio/miniconda3:4.6.14
+FROM continuumio/miniconda3:4.7.10
 
-MAINTAINER pughdr <david.pugh@kaust.edu.sa>
+LABEL maintainer="pughdr <david.pugh@kaust.edu.sa>"
 
 SHELL [ "/bin/bash", "-c" ]
 
+# Update conda as root
+RUN conda update --name base --channel defaults conda
+
 # Create a non-root user
-ARG username
-ARG uid
-ARG gid
+ARG username=al-khawarizmi
+ARG uid=1000
+ARG gid=100
 ENV USER ${username}
 ENV UID ${uid}
 ENV GID ${gid}
@@ -25,7 +28,7 @@ USER ${USER}
 RUN mkdir $HOME/app
 WORKDIR $HOME/app
 
-# build the specified conda environment from a file (defaults to 'environment.yml')
+# build the specified conda environment from a file
 ARG environment
 COPY --chown=$UID:$GID ${environment} /usr/tmp/environment.yml
 RUN conda env create --prefix ./env --file /usr/tmp/environment.yml && \
