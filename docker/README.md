@@ -12,7 +12,6 @@ $ docker container run \
   --volume ${pwd}/notebooks:/home/$USER/app/notebooks \
   --volume ${pwd}/results:/home/$USER/app/results \
   --volume ${pwd}/src:/home/$USER/app/src \
-  --runtime nvidia \
   --publish 8888:8888 \
   kaustvl/sklearn-data-science-project:latest
 ```
@@ -65,7 +64,6 @@ $ docker container run \
   --volume ${pwd}/notebooks:/home/$USER/app/notebooks \
   --volume ${pwd}/results:/home/$USER/app/results \
   --volume ${pwd}/src:/home/$USER/app/src \
-  --runtime nvidia \
   --publish 8888:8888 \
   $IMAGE_NAME:$IMAGE_TAG
 ```
