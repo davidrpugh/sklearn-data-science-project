@@ -23,22 +23,27 @@ RUN adduser --disabled-password \
     --home $HOME \
     $USER
 
+# Dockerhub not yet supporting COPY --chown $UID:$GID syntax
+ARG environment
+COPY ${environment} /usr/tmp/environment.yml
+RUN chown $UID:$GID /usr/tmp/environment.yml
+
+ARG entrypoint
+COPY ${entrypoint} /usr/local/bin/docker-entrypoint.sh
+RUN chown $UID:$GID /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # want to create conda environment as non-root user 
 USER ${USER}
 RUN mkdir $HOME/app
 WORKDIR $HOME/app
 
 # build the specified conda environment from a file
-ARG environment
-COPY --chown=$UID:$GID ${environment} /usr/tmp/environment.yml
 RUN conda env create --prefix ./env --file /usr/tmp/environment.yml && \
     conda clean --all --force-pkgs-dir --yes && \
     conda init bash
 
 # use an entrypoint script to insure conda environment is properly activated at runtime
-ARG entrypoint
-COPY --chown=$UID:$GID ${entrypoint} /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 
 # default command will be to launch JupyterLab server for development
