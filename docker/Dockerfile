@@ -1,13 +1,11 @@
-FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu16.04
+FROM continuumio/miniconda3:4.7.10
 
 LABEL maintainer="pughdr <david.pugh@kaust.edu.sa>"
 
 SHELL [ "/bin/bash", "-c" ]
 
-RUN apt-get update --fix-missing && \
-    apt-get install -y wget bzip2 curl git && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Update conda as root
+RUN conda update --name base --channel defaults conda
 
 # Create a non-root user
 ARG username=al-khawarizmi
@@ -25,35 +23,24 @@ RUN adduser --disabled-password \
     --home $HOME \
     $USER
 
-# Dockerhub not yet supporting COPY --chown $UID:$GID syntax
-ARG environment
-COPY ${environment} /usr/tmp/environment.yml
-RUN chown $UID:$GID /usr/tmp/environment.yml
-
-ARG entrypoint
-COPY ${entrypoint} /usr/local/bin/docker-entrypoint.sh
-RUN chown $UID:$GID /usr/local/bin/docker-entrypoint.sh && \
-    chmod +x /usr/local/bin/docker-entrypoint.sh
-
-# install Miniconda as non-root user
-USER $USER
-
-ENV MINICONDA_VERSION 4.7.10
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
-    chmod +x ~/miniconda.sh && \
-    ~/miniconda.sh -b && \
-    rm ~/miniconda.sh && \
-    echo ". ${HOME}/miniconda3/etc/profile.d/conda.sh" >> ~/.profile
-
+# want to create conda environment as non-root user 
+USER ${USER}
 RUN mkdir $HOME/app
 WORKDIR $HOME/app
 
-RUN ~/miniconda3/bin/conda update --name base --channel defaults conda && \
-    ~/miniconda3/bin/conda env create --prefix ./env --file /usr/tmp/environment.yml && \
-    ~/miniconda3/bin/conda clean --all --yes
+# build the specified conda environment from a file
+ARG environment
+COPY --chown=$UID:$GID ${environment} /usr/tmp/environment.yml
+RUN conda env create --prefix ./env --file /usr/tmp/environment.yml && \
+    conda clean --all --force-pkgs-dir --yes && \
+    conda init bash
 
 # use an entrypoint script to insure conda environment is properly activated at runtime
+ARG entrypoint
+COPY --chown=$UID:$GID ${entrypoint} /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 
 # default command will be to launch JupyterLab server for development
+EXPOSE 8888
 CMD [ "jupyter", "lab", "--no-browser", "--ip", "0.0.0.0" ]
