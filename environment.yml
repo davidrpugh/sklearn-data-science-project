@@ -5,9 +5,14 @@ channels:
   - defaults
 
 dependencies:
+  - ipython-sql=0.3
   - jupyterlab=1.2
+  - jupyterlab-git=0.9
   - matplotlib=3.1
   - pandas=0.25
+  - pip=19.3
+  - pip:
+    - -r file:requirements.txt
   - pyarrow=0.15
   - python=3.7
   - scikit-learn=0.22
