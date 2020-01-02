@@ -5,6 +5,7 @@ channels:
   - defaults
 
 dependencies:
+  - featuretools=0.13
   - ipython-sql=0.3
   - jupyterlab=1.2
   - jupyterlab-git=0.9
