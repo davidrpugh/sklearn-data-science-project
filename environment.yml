@@ -14,7 +14,7 @@ dependencies:
   - matplotlib=3.1
   - nodejs=13.0
   - optuna=1.0
-  - pandas=0.25
+  - pandas=1.0
   - pip=19.3
   - pip:
     - -r file:requirements.txt
