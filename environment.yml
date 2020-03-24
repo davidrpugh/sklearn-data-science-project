@@ -5,6 +5,7 @@ channels:
   - defaults
 
 dependencies:
+  - dask=2.12
   - featuretools=0.13
   - hvplot=0.5
   - imbalanced-learn=0.6
@@ -12,6 +13,7 @@ dependencies:
   - jupyterlab=1.2
   - jupyterlab-git=0.9
   - matplotlib=3.2
+  - nbdime=1.1
   - nodejs=13
   - optuna=1.2
   - pandas=1.0
