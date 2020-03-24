@@ -11,13 +11,13 @@ dependencies:
   - ipython-sql=0.3
   - jupyterlab=1.2
   - jupyterlab-git=0.9
-  - matplotlib=3.1
-  - nodejs=13.0
-  - optuna=1.0
+  - matplotlib=3.2
+  - nodejs=13
+  - optuna=1.2
   - pandas=1.0
-  - pip=19.3
+  - pip=20.0
   - pip:
     - -r file:requirements.txt
-  - pyarrow=0.15
+  - pyarrow=0.16
   - python=3.7
   - scikit-learn=0.22
