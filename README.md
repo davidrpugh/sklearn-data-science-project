@@ -81,6 +81,13 @@ following command.
 conda env create --prefix $ENV_PREFIX --file environment.yml --force
 ```
 
+If you add any additional JupyterLab extensions to the `postBuild` file, then you should run the 
+environment creation script again.
+
+```bash
+./bin/create-conda-env.sh
+```
+
 ## Using Docker
 
 In order to build Docker images for your project and run containers you will need to install 
