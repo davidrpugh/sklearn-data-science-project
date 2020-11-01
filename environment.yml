@@ -25,4 +25,5 @@ dependencies:
   - pyarrow=2.0
   - python=3.8
   - scikit-learn=0.23
+  - umap-learn=0.4
   - xgboost=1.2
