@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL maintainer="pughdr <david.pugh@kaust.edu.sa>"
 
@@ -39,7 +39,7 @@ RUN chown $UID:$GID /usr/local/bin/entrypoint.sh && \
 USER $USER
 
 # install miniconda
-ENV MINICONDA_VERSION 4.8.2
+ENV MINICONDA_VERSION latest
 ENV CONDA_DIR $HOME/miniconda3
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-$MINICONDA_VERSION-Linux-x86_64.sh -O ~/miniconda.sh && \
     chmod +x ~/miniconda.sh && \

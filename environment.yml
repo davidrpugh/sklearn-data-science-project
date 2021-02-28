@@ -6,6 +6,7 @@ channels:
   - defaults
 
 dependencies:
+<<<<<<< HEAD
   - bokeh
   - dask
   - dask-ml
@@ -23,6 +24,7 @@ dependencies:
   - numba
   - optuna
   - pandas
+  - panel
   - pip
   - pip:
     - -r file:requirements.txt
@@ -30,5 +32,6 @@ dependencies:
   - python
   - pyviz_comms
   - scikit-learn
+  - umap-learn
   - xeus-python
   - xgboost

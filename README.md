@@ -70,7 +70,6 @@ following command.
 ./bin/create-conda-env.sh
 ```
 
-
 ## Using Docker
 
 In order to build Docker images for your project and run containers you will need to install 
