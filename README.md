@@ -44,19 +44,8 @@ conda activate $ENV_PREFIX
 Note that the `ENV_PREFIX` directory is *not* under version control as it can always be re-created as 
 necessary.
 
-If you wish to use any JupyterLab extensions included in the `environment.yml` and `requirements.txt` 
-files then you need to activate the environment and rebuild the JupyterLab application using the 
-following commands to source the `postBuild` script.
-
-```bash
-conda activate $ENV_PREFIX # optional if environment already active
-. postBuild
-```
-
 For your convenience these commands have been combined in a shell script `./bin/create-conda-env.sh`. 
-Running the shell script will create the Conda environment, activate the Conda environment, and build 
-JupyterLab with any additional extensions. The script should be run from the project root directory as 
-follows. 
+The script should be run from the project root directory as follows. 
 
 ```bash
 ./bin/create-conda-env.sh
@@ -78,8 +67,9 @@ after the environment has already been created, then you can re-create the envir
 following command.
 
 ```bash
-conda env create --prefix $ENV_PREFIX --file environment.yml --force
+./bin/create-conda-env.sh
 ```
+
 
 ## Using Docker
 
