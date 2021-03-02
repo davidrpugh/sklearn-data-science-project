@@ -9,6 +9,7 @@ dependencies:
   - bokeh
   - dask
   - dask-ml
+  - dask-labextension
   - featuretools
   - gh
   - git
@@ -28,9 +29,12 @@ dependencies:
   - pip:
     - -r file:requirements.txt
   - pyarrow
-  - python
+  - python=3.8
+  - python-language-server
   - pyviz_comms
   - scikit-learn
+  - shap
   - umap-learn
+  - wandb
   - xeus-python
   - xgboost
