@@ -2,7 +2,7 @@
 #SBATCH --time=1:00:00
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=8G
-#SBATCH --partition=batch
+#SBATCH --partition=debug
 #SBATCH --job-name=create-conda-env
 #SBATCH --mail-type=ALL
 #SBATCH --output=bin/%x-%j-slurm.out
