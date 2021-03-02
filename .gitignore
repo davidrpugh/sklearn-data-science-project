@@ -123,3 +123,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Ignore Slurm output files for conda env creation jobs
+bin/create-conda-env-*-slurm.*
