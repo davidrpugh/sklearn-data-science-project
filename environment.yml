@@ -6,7 +6,6 @@ channels:
   - defaults
 
 dependencies:
-<<<<<<< HEAD
   - bokeh
   - dask
   - dask-ml
