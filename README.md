@@ -30,8 +30,9 @@ After adding any necessary dependencies for your project to the Conda `environme
 project directory by running the following command.
 
 ```bash
-ENV_PREFIX=$PWD/env
-conda env create --prefix $ENV_PREFIX --file environment.yml --force
+PROJECT_DIR=$PWD
+ENV_PREFIX=$PROJECT_DIR/env
+conda env create --prefix $ENV_PREFIX --file $PROJECT_DIR/environment.yml --force
 ```
 
 Once the new environment has been created you can activate the environment with the following 
