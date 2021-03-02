@@ -1,3 +1,4 @@
 dask-labextension
+pandas-bokeh
 python-language-server[all]
 shap
