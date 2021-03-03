@@ -10,6 +10,7 @@ dependencies:
   - dask
   - dask-ml
   - dask-labextension
+  - datashader
   - featuretools
   - gh
   - git
@@ -22,6 +23,7 @@ dependencies:
   - lightgbm
   - matplotlib
   - numba
+  - numpy
   - optuna
   - pandas
   - panel
@@ -33,8 +35,10 @@ dependencies:
   - python-language-server
   - pyviz_comms
   - scikit-learn
+  - scipy
   - shap
   - umap-learn
   - wandb
+  - xarray
   - xeus-python
   - xgboost
