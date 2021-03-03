@@ -29,7 +29,7 @@ dependencies:
   - pip:
     - -r file:requirements.txt
   - pyarrow
-  - python=3.8
+  - python=3.7
   - python-language-server
   - pyviz_comms
   - scikit-learn
