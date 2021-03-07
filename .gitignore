@@ -125,3 +125,4 @@ dmypy.json
 
 # Ignore Slurm output files for conda env creation jobs
 bin/create-conda-env-*-slurm.*
+bin/launch-jupyter-server-*-slurm.*
