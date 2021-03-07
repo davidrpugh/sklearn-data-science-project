@@ -19,7 +19,7 @@ For your convenience the commands to launch a job via Slurm to create the Conda 
 sbatch ./bin/create-conda-env.sbatch
 ```
 
-## Launching Jupyter server for interactive work
+## Launching a Jupyter server for interactive work
 
 The job script `launch-jupyter-server.sbatch` launches a Jupyter server for interactive prototyping. To launch a JupyterLab server 
 use `sbatch` to submit the job script by running the following command from the project root directory.
@@ -48,7 +48,7 @@ ssh -L ${JUPYTER_PORT}:${IBEX_NODE}:${JUPYTER_PORT} ${USER}@ilogin.ibex.kaust.ed
 
 The exact command for your job can be copied from the `./bin/launch-jupyter-server-$SLURM_JOB_ID-slurm.err` file.
 
-### Accessing Jupyter server from your local machine
+### Accessing the Jupyter server from your local machine
 
 Once you have set up your SSH tunnel, in order to access the Jupyter server from your local machine you need to copy the 
 second URL provided in the Jupyter server logs in the `launch-jupyter-server-$SLURM_JOB_ID-slurm.err` file and paste it into 
