@@ -6,7 +6,9 @@ from sklearn import datasets, decomposition, ensemble, metrics
 from sklearn import model_selection, pipeline, preprocessing
 
 
+DATA_DIR = pathlib.Path("data/")
 DATASET_NAME = "CIFAR_10"
+DATASET_FILENAME = DATA_DIR / f"{DATASET_NAME}.joblib"
 N_COMPONENTS = 0.95
 OUTPUT_DIR = pathlib.Path("results/example-training-job/")
 OUTPUT_FILENAME = OUTPUT_DIR / "model.joblib"
@@ -16,16 +18,22 @@ TRAIN_N_JOBS = -1
 VERBOSITY = 10
 
 
-# download the dataset
-bunch = datasets.fetch_openml(name=DATASET_NAME, as_frame=True)
-data_df, target_df = bunch["data"], bunch["target"]
+# download the dataset (if necessary!)
+if not DATASET_FILENAME.exists():
+    print("Started downloading the dataset...")
+    bunch = datasets.fetch_openml(name=DATASET_NAME, as_frame=True)
+    joblib.dump(bunch, DATASET_FILENAME)
+    print("...finished downloading the dataset!")
+else:
+    bunch = joblib.load(DATASET_FILENAME)
 
 # split the dataset into training and testing data
 _random_state = (np.random
                    .RandomState(SEED))
 train_df, test_df, train_target, test_target = model_selection.train_test_split(
-    data_df,
-    target_df,
+    bunch["data"],
+    bunch["target"],
+    stratify=bunch["target"],
     test_size=TEST_SIZE,
     random_state=_random_state
 )
@@ -41,8 +49,10 @@ ml_pipeline = pipeline.make_pipeline(
 )
 
 # fit the pipeline and save the trained model to disk
+print("Started training the pipeline...")
 _ = ml_pipeline.fit(train_df, train_target)
 joblib.dump(ml_pipeline, OUTPUT_FILENAME)
+print("...finished training the pipeline!")
 
 # make predictions
 predictions = ml_pipeline.predict(test_df)
