@@ -1,11 +1,15 @@
+import pathlib
+
 import joblib
 import numpy as np
-import pandas as pd
-from sklearn import datasets, decomposition, ensemble, metrics, model_selection, pipeline, preprocessing
+from sklearn import datasets, decomposition, ensemble, metrics
+from sklearn import model_selection, pipeline, preprocessing
 
 
 DATASET_NAME = "CIFAR_10"
 N_COMPONENTS = 0.95
+OUTPUT_DIR = pathlib.Path("results/example-training-job/")
+OUTPUT_FILENAME = OUTPUT_DIR / "model.joblib"
 SEED = 42
 TEST_SIZE = 0.1
 TRAIN_N_JOBS = -1
@@ -30,13 +34,15 @@ train_df, test_df, train_target, test_target = model_selection.train_test_split(
 ml_pipeline = pipeline.make_pipeline(
     preprocessing.MinMaxScaler(),
     decomposition.PCA(n_components=N_COMPONENTS, random_state=_random_state),
-    ensemble.RandomForestClassifier(n_jobs=TRAIN_N_JOBS, random_state=_random_state, verbose=VERBOSITY),
+    ensemble.RandomForestClassifier(n_jobs=TRAIN_N_JOBS,
+                                    random_state=_random_state,
+                                    verbose=VERBOSITY),
     verbose=True,
 )
 
 # fit the pipeline and save the trained model to disk
 _ = ml_pipeline.fit(train_df, train_target)
-joblib.dump(ml_pipeline, f"../results/ml-pipeline.joblib")
+joblib.dump(ml_pipeline, OUTPUT_FILENAME)
 
 # make predictions
 predictions = ml_pipeline.predict(test_df)

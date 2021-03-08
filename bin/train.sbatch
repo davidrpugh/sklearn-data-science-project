@@ -5,8 +5,11 @@
 #SBATCH --constraint=intel
 #SBATCH --partition=batch 
 #SBATCH --mail-type=ALL
-#SBATCH --output=bin/%x/%j-slurm.out
-#SBATCH --error=bin/%x/%j-slurm.err
+#SBATCH --output=results/%x/%j-slurm.out
+#SBATCH --error=results/%x/%j-slurm.err
+
+# entire script fails if single command fails
+set -e
 
 # activate the conda environment
 ENV_PREFIX=$PROJECT_DIR/env
