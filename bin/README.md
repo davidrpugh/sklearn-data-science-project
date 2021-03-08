@@ -79,6 +79,45 @@ complex machine learning workflows.
 The script `./bin/train.sbatch` is the actual Slurm job script. This script can be broken down into three parts that 
 are common to all machine learning jobs on Ibex.
 
-1. Request resources from Slurm
-2. Activate the Conda environment
-3. Launch the training script
+### Request resources from Slurm
+
+You will request resources for your job using Slurm headers. The headers below request 4 Intel CPU cores, 36G of 
+CPU memory for 2 hours. Requesting only Intel CPU cores is important because the Conda environment has been optimized 
+for performance on Intel CPUs. Most Scikit-Learn algorithms are parallelized and by default will take advantage of all 
+available CPUs therefore you will typically want to request more than one CPU for your Scikit-Learn training jobs. You 
+should typically request at most 9G of CPU memory per CPU (each Intel node has 40 CPUs and roughly 366G of usable CPU 
+memory which works out to a little more than 9G per CPU).    
+
+```bash
+#!/bin/bash --login
+#SBATCH --time 2:00:00
+#SBATCH --cpus-per-task=4  
+#SBATCH --mem-per-cpu=9G 
+#SBATCH --constraint=intel
+#SBATCH --partition=batch 
+#SBATCH --mail-type=ALL
+#SBATCH --output=results/%x/%j-slurm.out
+#SBATCH --error=results/%x/%j-slurm.err
+```
+
+### Activate the Conda environment
+
+Activating the Conda environment is done in the usual way however it is critical for the job script to run inside a 
+login shell in order for the `conda activate` command to work as expected (this is why the first line of the job script 
+is `#!/bin/bash --login`). It is also a good practice to purge any modules that you might have loaded prior to launching 
+the training job.
+ 
+```bash
+module purge
+ENV_PREFIX=$PROJECT_DIR/env
+conda activate $ENV_PREFIX
+```
+
+### Launch a training script
+
+Finally, you launch the training job! Note that we use the special Bash variable `$1` to refer to the first argument 
+passed to the Slurm job script. This allows you to reuse the same Slurm job script for other training jobs!
+
+```bash
+python $1
+```
