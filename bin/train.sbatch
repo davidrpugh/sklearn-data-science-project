@@ -12,6 +12,7 @@
 set -e
 
 # activate the conda environment
+module purge
 ENV_PREFIX=$PROJECT_DIR/env
 conda activate $ENV_PREFIX
 
