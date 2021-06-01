@@ -32,7 +32,7 @@ project directory by running the following command.
 ```bash
 PROJECT_DIR=$PWD
 ENV_PREFIX=$PROJECT_DIR/env
-conda env create --prefix $ENV_PREFIX --file $PROJECT_DIR/environment.yml --force
+mamba env create --prefix $ENV_PREFIX --file $PROJECT_DIR/environment.yml --force
 ```
 
 Once the new environment has been created you can activate the environment with the following 
