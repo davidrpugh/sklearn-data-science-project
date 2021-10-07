@@ -1,7 +1,6 @@
 name: null
 
 channels:
-  - intel
   - conda-forge
   - defaults
 
@@ -29,9 +28,9 @@ dependencies:
   - panel
   - pip
   - pip:
-    - -r file:requirements.txt
+    - -r requirements.txt
   - pyarrow
-  - python=3.7
+  - python
   - python-language-server
   - pyviz_comms
   - scikit-learn
